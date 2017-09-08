@@ -1,0 +1,126 @@
+#用来配置每个url handler的权限,配合middleware: auth.CheckLogin 和 auth.CheckRights使用
+rights:
+    #------Webservices---------------
+    /api/v1/webservices/upload:
+        login_required: true
+
+    #------User---------------------
+    /api/v1/webservices/accounts/login:
+        login_required: false
+    /api/v1/webservices/accounts/logout:
+        login_required: true
+    /api/v1/webservices/accounts:
+        login_required: ['get', 'put', 'delete']
+    /api/v1/webservices/accounts/(\d+):
+        login_required: true
+    /api/v1/webservices/accounts/confirm-email/(\w+):
+        login_required: false
+
+    #-----Cloud host------------------
+    /api/v1/webservices/instance:
+        login_required: true
+    /api/v1/webservices/host/instance:
+        login_required: false
+    /api/v1/webservices/host:
+        login_required: true
+    /api/v1/webservices/instance/filter:
+        login_required: true
+    /api/v1/webservices/rename/instance:
+        login_required: true
+
+    #-----Network--------------------
+    /api/v1/webservices/new/elastic:
+        login_required: false
+
+    #-----Cloud disk------------------
+    /api/v1/webservices/disk:
+        login_required: false
+    /api/v1/webservices/disk/instance:
+        login_required: false
+    /api/v1/webservices/disk/resize:
+        login_required: true
+    /api/v1/webservices/disk/bind:
+        login_required: true
+    /api/v1/webservices/new/disk:
+        login_required: true
+
+    #-----Message center---------------
+    /api/v1/webservices/notice:
+        login_required: true
+    /api/v1/webservices/notice/count:
+        login_required: true
+    /api/v1/webservices/notice/detail:
+        login_required: true
+
+    #----Finance managment-------------
+    /api/v1/webservices/finance/record:
+        login_required: true
+    /api/v1/webservices/finance/account:
+        login_required: true
+    /api/v1/webservices/finance/order:
+        login_required: true
+
+    #---Work order--------------------
+    /api/v1/webservices/workorder/%s:
+        login_required: true
+    /api/v1/webservices/workorder:
+        login_required: true
+    /api/v1/webservices/workorder/suggest:
+        login_required: true
+    /api/v1/webservices/workorder/category:
+        login_required: true
+
+
+    #---------Admin-----------------------
+    /api/v1/admin/customer:
+        login_required: false
+        acl:
+            get: [admin]
+            post: [admin]
+            put: [admin]
+            delete: [admin]
+    /api/v1/admin/customer/%s:
+        login_required: false
+        acl:
+            get: [admin]
+
+
+
+    #---------Old--------------------------
+    /api/login: #登录
+        login_required: false
+    /api/logout: #注销
+        login_required: true
+    /api/uploadavatar: #上传头像
+        login_required: true
+    /api/uploadstream: #上传文件
+        login_required: true
+    /api/uploadurl:    #上传url
+        login_required: true
+    /api/upload:
+        login_required: false
+    /api/grade:
+        login_required: true
+        acl:
+            get: [admin, teacher,school_admin,parents]
+    /api/section:
+        login_required: true
+        acl:
+            get: [admin, teacher,student,school_admin,parents]
+    /api/class:
+        login_required: true
+        acl:
+            get: [teacher, admin,school_admin,parents]
+            post: [teacher, admin,school_admin]
+            put: [teacher, admin,school_admin]
+            delete: [teacher, admin,school_admin]
+    /api/myclass:
+        login_required: true
+        acl:
+            get: [teacher]
+            post: [teacher]
+    /api/changepwd:
+        login_required: true
+        acl:
+            get: [admin, teacher,school_admin]
+            put: [admin, teacher,school_admin]

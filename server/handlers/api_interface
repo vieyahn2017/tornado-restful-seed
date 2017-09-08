@@ -1,0 +1,69 @@
+一. 购买界面:
+    1. GET  列出所有的区域                           (webservice, compute)
+    2. GET  根据区域列出所有的机型(套餐) (含价格)    (webservice, compute)
+    3. GET  根据区域列出所有的存储类型               (webservice, storage)
+    4. GET  根据区域列出所有的镜像                   (webservice, images)
+    5. GET  根据区域、镜像类型列出
+                所有的操作系统及类型(含价格)         (webservice, images)
+    6. GET  根据区域列出所有网络类型                 (webservice, network)
+    7. GET  根据区域、网络类型列出网络线路(含价格)   (webservice, network)
+
+    8. POST 将购买界面的数据提交到后台               (webservice, compute, storage, images, network)
+
+二. 主机列表:
+    1. GET 根据用户信息显示该用户下的所有主机信息(含分页) (webservice, compute, network, images, storage)
+    2. PUT 根据用户选择的机器ID执行开机/关机/重启操作   (webservice, compute)
+    3. PUT 将数据盘绑定到指定机器上         (webservice, compute调cc成功后通知storage, storage修改状态)
+    4. PUT 将IP绑定到指定机器上     (webservice, compute调cc成功后通知network,network修改状态)
+    5. PUT 对用户设置的资源名称进行保存 (webservice)
+
+三. 云硬盘:
+    1. GET 根据用户信息显示该用户下的所有数据盘列表 (webservice, storage)
+    2. DELETE 根据用户选择的数据盘ID执行删除操作 (webservice, storage)
+    3. POST 根据用户选择的购买信息实现数据盘购买操作 (webservice, storage)
+    4. PUT 数据盘扩容操作   (webservice, storage)
+    5. PUT 对用户设置的资源名称进行保存 (webservice)
+
+四. 网络:
+    1. GET 列出该用户购买的所有IP信息       (webservice, network)
+    2. DELETE 实现对已经解绑的IP进行释放操作    (webservice, network)
+    3. POST 实现对用户新增IP操作        (webservice, network)
+    5. PUT 对用户设置的资源名称进行保存 (webservice)
+
+五.用户控制面板:
+    1. GET 返回图形验证码,可参考那种滑动式的验证
+    2. POST 登录验证及跳转
+    3. POST 注册
+    4. 找回密码
+        4.1 GET 检查帐号信息是否正确
+        4.2 POST 确认前台用户信息,验证正确性
+    5. 账户信息
+        1. PUT 设置(更改)用户昵称(username)
+        2. 更换绑定手机
+            2.1 GET 生成短信验证码,放入Session中,调用发短信接口
+            2.2 POST 校验前台输入的短信验证码
+            2.3 PUT 更新用户手机号
+        3. 绑定邮箱
+            3.1 GET 生成邮箱验证码,放入Session中,调用发送邮件接口
+            3.2 POST 校验前台输入的邮箱验证码
+            3.3 PUT 更新用户的邮箱帐号
+            3.4 PUT 邮箱帐号确认
+        4. PUT 修改密码
+    6. 信息中心
+        1. GET 列出该用户下的所有有公告/站内信(分页)
+        2. PUT 更新公告/站内信 的阅读状态[已读/未读]
+        3. GET 列出该用户下的未读公告/站内信
+        4. DELETE 将公告/站内信 删除 (批量)
+        5. GET 返回该用户未读的 公告/站内信 的总数量 (供控制台头部显示使用)
+        6. GET 根据公告/站内信 ID，返回详细信息(标题,内容...)
+    7. 工单管理
+        1. GET 列出该用户下的所有工单信息 (分页)
+        2. GET 根据工单ID获取详细信息[目前使用后台人工回访的方式]
+        3. GET 列出可用的工单/投诉建议 类别
+        3. POST 上传图片(文件)接口[接收二进制数据] (已实现,需要修改下)
+        4. POST 保存用户填写的工单信息
+        5. POST 保存用户填写的投诉建议信息
+    8. 财务管理
+        1. GET 列出用户的所有充值记录(分页)
+        2. GET 列出可用的支付方式及银行帐号
+        3. GET 列出用户所购买的订单信息(分页)
