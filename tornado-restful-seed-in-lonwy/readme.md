@@ -3,7 +3,7 @@
 # tornado-restful-seed-in-lonwy
 Tornado种子项目，restful接口，分布式架构。
 
-##所用组件：
+## 所用组件：
 mysql   
 mongodb   
 memcached   
